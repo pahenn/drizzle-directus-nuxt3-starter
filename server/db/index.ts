@@ -30,3 +30,13 @@ export async function checkDatabaseConnection() {
     return false
   }
 }
+
+// co-opted from NuxtHub
+import * as schema from "./schema"
+export { sql, eq, and, or } from "drizzle-orm"
+
+export function useDrizzle() {
+  return drizzle(client, { schema })
+}
+
+export type DirectusUser = typeof schema.directusUsers.$inferSelect
