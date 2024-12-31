@@ -1,6 +1,4 @@
-import { db } from "../../db"
 import { directusUsers } from "../../db/schema"
-import { eq } from "drizzle-orm"
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id")
@@ -13,7 +11,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const user = await db
+    const user = await useDrizzle()
       .select()
       .from(directusUsers)
       .where(eq(directusUsers.id, id))

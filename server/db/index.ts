@@ -6,7 +6,7 @@ if (!process.env.DB_URL) {
 }
 
 // Create postgres connection with better defaults
-const client = postgres(process.env.DB_URL, {
+export const client = postgres(process.env.DB_URL, {
   prepare: false,
   max: 10, // Increase connection pool size
   idle_timeout: 20, // Close idle connections after 20 seconds
@@ -30,13 +30,3 @@ export async function checkDatabaseConnection() {
     return false
   }
 }
-
-// co-opted from NuxtHub
-import * as schema from "./schema"
-export { sql, eq, and, or } from "drizzle-orm"
-
-export function useDrizzle() {
-  return drizzle(client, { schema })
-}
-
-export type DirectusUser = typeof schema.directusUsers.$inferSelect

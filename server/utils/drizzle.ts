@@ -1,12 +1,13 @@
-import { drizzle } from "drizzle-orm/d1"
+import { drizzle } from "drizzle-orm/postgres-js"
+import { client } from "../db"
+import * as schema from "../db/schema"
+
 export { sql, eq, and, or } from "drizzle-orm"
 
-import * as schema from "../db/schema"
-import { db } from "../db"
 export const tables = schema
 
 export function useDrizzle() {
-  return drizzle(db, { schema })
+  return drizzle(client, { schema })
 }
 
-export type User = typeof schema.directusUsers.$inferSelect
+export type DirectusUser = typeof schema.directusUsers.$inferSelect
