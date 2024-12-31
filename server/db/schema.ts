@@ -8,6 +8,7 @@ import {
   json,
   boolean,
 } from "drizzle-orm/pg-core"
+import { sql } from "drizzle-orm"
 
 // Example user table - modify according to your needs
 export const directusUsers = pgTable("directus_users", {
