@@ -9,6 +9,7 @@ import {
   boolean,
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
+import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 
 // Example user table - modify according to your needs
 export const directusUsers = pgTable("directus_users", {
@@ -45,3 +46,6 @@ export const directusUsers = pgTable("directus_users", {
   themeLightOverrides: json("theme_light_overrides"),
   themeDarkOverrides: json("theme_dark_overrides"),
 })
+
+export const insertDirectusUser = createInsertSchema(directusUsers)
+export const selectDirectusUser = createSelectSchema(directusUsers)
