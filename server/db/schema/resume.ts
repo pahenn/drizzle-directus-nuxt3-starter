@@ -7,21 +7,52 @@ import {
   uuid,
   json,
   boolean,
+  integer,
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 
-import { directusUsers } from "./users"
 import { timeStamps } from "./fieldGroups"
 import * as profile from "./profile"
 
 export const resume = pgTable("resume", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
-  projects: uuid("projects").references(() => profile.projects.id),
-  technologies: uuid("technologies").references(() => profile.technologies.id),
+  profile: uuid("profile").references(() => profile.profile.id),
+  title: varchar("title", { length: 255 }),
+  description: text("description"),
+})
+
+export const resumeOverview = pgTable("resumeOverview", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  resume: uuid("resume").references(() => resume.id),
+  about: uuid("about").references(() => profile.overviewContentBlocks.id),
+  sort: integer("sort"),
+})
+
+export const resumeProjects = pgTable("resumeProjects", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  resume: uuid("resume").references(() => resume.id),
+  project: uuid("project").references(() => profile.projects.id),
+  sort: integer("sort"),
+})
+
+export const resumeTechnologies = pgTable("resumeTechnologies", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  resume: uuid("resume").references(() => resume.id),
+  technology: uuid("technology").references(() => profile.technologies.id),
+  sort: integer("sort"),
+})
+
+export const resumeEmploymentHistory = pgTable("resumeEmploymentHistory", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  resume: uuid("resume").references(() => resume.id),
   employmentHistory: uuid("employmentHistory").references(
     () => profile.employmentHistory.id
   ),
+  sort: integer("sort"),
 })
