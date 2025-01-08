@@ -10,25 +10,39 @@ import {
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
-
-import { directusUsers } from "./users"
 import { timeStamps } from "./fieldGroups"
 
-export const aboutContentBlocks = pgTable("aboutContentBlocks", {
+import { user } from "./users"
+
+export const profile = pgTable("profile", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  user: uuid("user").references(() => user.id),
+  x: varchar("x", { length: 255 }),
+  blueSky: varchar("blue_sky", { length: 255 }),
+  linkedin: varchar("linked_in", { length: 255 }),
+  github: varchar("github", { length: 255 }),
+})
+
+export const overviewContentBlocks = pgTable("aboutContentBlocks", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  profile: uuid("profile").references(() => profile.id),
   title: varchar("title", { length: 255 }),
   content: text("content"),
 })
 
-export const insertAboutContentBlock = createInsertSchema(aboutContentBlocks)
-export const selectAboutContentBlock = createSelectSchema(aboutContentBlocks)
+export const insertOverviewContentBlock = createInsertSchema(
+  overviewContentBlocks
+)
+export const selectOverviewContentBlock = createSelectSchema(
+  overviewContentBlocks
+)
 
 export const technologies = pgTable("technologies", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  profile: uuid("profile").references(() => profile.id),
   name: varchar("name", { length: 255 }),
   description: text("description"),
 })
@@ -36,15 +50,15 @@ export const technologies = pgTable("technologies", {
 export const projects = pgTable("projects", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  profile: uuid("profile").references(() => profile.id),
   title: varchar("title", { length: 255 }),
-  content: text("content"),
+  description: text("description"),
 })
 
 export const projectDetails = pgTable("projectDetails", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  profile: uuid("profile").references(() => profile.id),
   project: uuid("project").references(() => projects.id),
   title: varchar("title", { length: 255 }),
   content: text("content"),
@@ -60,7 +74,7 @@ export const projectTechnologies = pgTable("projectTechnologies", {
 export const employmentEntities = pgTable("employmentEntities", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  profile: uuid("profile").references(() => profile.id),
   name: varchar("name", { length: 255 }),
   description: text("description"),
 })
@@ -68,7 +82,7 @@ export const employmentEntities = pgTable("employmentEntities", {
 export const employmentHistory = pgTable("employmentHistory", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => directusUsers.id),
+  profile: uuid("profile").references(() => profile.id),
   entity: uuid("entity").references(() => employmentEntities.id),
   title: varchar("title", { length: 255 }),
   content: text("content"),
@@ -94,3 +108,27 @@ export const employmentHistoryTechnologies = pgTable(
     technology: uuid("technology").references(() => technologies.id),
   }
 )
+
+export const education = pgTable("education", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  profile: uuid("profile").references(() => profile.id),
+  title: varchar("title", { length: 255 }),
+  content: text("content"),
+})
+
+export const publications = pgTable("publications", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  profile: uuid("profile").references(() => profile.id),
+  title: varchar("title", { length: 255 }),
+  content: text("content"),
+})
+
+export const certifications = pgTable("certifications", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  profile: uuid("profile").references(() => profile.id),
+  title: varchar("title", { length: 255 }),
+  content: text("content"),
+})

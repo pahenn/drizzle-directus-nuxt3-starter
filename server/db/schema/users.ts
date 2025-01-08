@@ -1,6 +1,5 @@
 import {
   pgTable,
-  serial,
   text,
   varchar,
   timestamp,
@@ -10,6 +9,13 @@ import {
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { timeStamps } from "./fieldGroups"
+
+export const user = pgTable("user", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  directusUser: uuid("directus_user").references(() => directusUsers.id),
+})
 
 // Example user table - modify according to your needs
 export const directusUsers = pgTable("directus_users", {
