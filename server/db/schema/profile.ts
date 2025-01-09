@@ -52,14 +52,30 @@ export const projects = pgTable("projects", {
   ...timeStamps,
   profile: uuid("profile").references(() => profile.id),
   title: varchar("title", { length: 255 }),
+  technologies: uuid("technologies").references(() => technologies.id),
   description: text("description"),
 })
 
 export const projectDetails = pgTable("projectDetails", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  profile: uuid("profile").references(() => profile.id),
   project: uuid("project").references(() => projects.id),
+  title: varchar("title", { length: 255 }),
+  content: text("content"),
+})
+
+export const projectSections = pgTable("projectSections", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  project: uuid("project").references(() => projects.id),
+  title: varchar("title", { length: 255 }),
+  content: text("content"),
+})
+
+export const projectSectionDetails = pgTable("projectSectionDetails", {
+  id: uuid("id").primaryKey().notNull(),
+  ...timeStamps,
+  projectSection: uuid("projectSection").references(() => projectSections.id),
   title: varchar("title", { length: 255 }),
   content: text("content"),
 })
