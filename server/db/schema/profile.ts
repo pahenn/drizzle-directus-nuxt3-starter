@@ -32,13 +32,6 @@ export const overviewContentBlocks = pgTable("aboutContentBlocks", {
   content: text("content"),
 })
 
-export const insertOverviewContentBlock = createInsertSchema(
-  overviewContentBlocks
-)
-export const selectOverviewContentBlock = createSelectSchema(
-  overviewContentBlocks
-)
-
 export const technologies = pgTable("technologies", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,

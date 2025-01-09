@@ -52,6 +52,3 @@ export const directusUsers = pgTable("directus_users", {
   themeLightOverrides: json("theme_light_overrides"),
   themeDarkOverrides: json("theme_dark_overrides"),
 })
-
-export const insertDirectusUser = createInsertSchema(directusUsers)
-export const selectDirectusUser = createSelectSchema(directusUsers)
