@@ -5,6 +5,8 @@
 <template>
   <div>
     <UHeader :title="config.title" />
-    <slot />
+    <UMain>
+      <slot />
+    </UMain>
   </div>
 </template>
