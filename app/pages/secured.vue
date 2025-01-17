@@ -2,7 +2,8 @@
   definePageMeta({
     middleware: "auth",
   })
-  const { loggedIn, user } = storeToRefs(useAuthStore())
+
+  const user = ref(null)
 </script>
 
 <template>

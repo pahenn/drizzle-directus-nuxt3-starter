@@ -1,6 +1,10 @@
 export default defineAppConfig({
+  title: "Patrick Hennessey Starter",
+  description: "A starter template for Nuxt3 with Directus and Drizzle",
   ui: {
-    primary: "blue",
-    gray: "slate",
+    colors: {
+      primary: "blue",
+      neutral: "zinc",
+    },
   },
 })

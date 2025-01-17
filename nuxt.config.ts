@@ -7,14 +7,11 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  extends: [
-    // "@nuxt/ui-pro"
-  ],
+  modules: ["@nuxt/ui-pro", "@nuxt/image", "@pinia/nuxt"],
+  css: ["~/assets/css/main.css"],
 
-  modules: ["@nuxt/ui", "@nuxt/image", "@pinia/nuxt"],
-
-  colorMode: {
-    preference: "light",
+  ui: {
+    colorMode: false,
   },
 
   runtimeConfig: {
