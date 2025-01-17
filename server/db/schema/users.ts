@@ -11,7 +11,7 @@ import { sql } from "drizzle-orm"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { timeStamps } from "./fieldGroups"
 
-export const user = pgTable("user", {
+export const users = pgTable("users", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
   directusUser: uuid("directus_user").references(() => directusUsers.id),

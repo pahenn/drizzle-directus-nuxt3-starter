@@ -27,8 +27,7 @@ export const resumeOverview = pgTable("resumeOverview", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
   resume: uuid("resume").references(() => resume.id),
-  about: uuid("about").references(() => profile.overviewContentBlocks.id),
-  sort: integer("sort"),
+  about: text("about"),
 })
 
 export const resumeProjects = pgTable("resumeProjects", {

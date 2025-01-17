@@ -12,12 +12,12 @@ import { sql } from "drizzle-orm"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { timeStamps } from "./fieldGroups"
 
-import { user } from "./users"
+import { users } from "./users"
 
 export const profile = pgTable("profile", {
   id: uuid("id").primaryKey().notNull(),
   ...timeStamps,
-  user: uuid("user").references(() => user.id),
+  user: uuid("user").references(() => users.id),
   x: varchar("x", { length: 255 }),
   blueSky: varchar("blue_sky", { length: 255 }),
   linkedin: varchar("linked_in", { length: 255 }),

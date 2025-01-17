@@ -10,4 +10,5 @@ export function useDrizzle() {
   return drizzle(client, { schema })
 }
 
+// Not sure if it makes sense to do this for every table, but this is an example
 export type DirectusUser = typeof schema.directusUsers.$inferSelect
